@@ -1,18 +1,23 @@
-
 public class Main {
 
-	public static void main(String[] args) {
-		Cliente venilton = new Cliente();
-		venilton.setNome("Venilton");
-		
-		Conta cc = new ContaCorrente(venilton);
-		Conta poupanca = new ContaPoupanca(venilton);
+    public static void main(String[] args) {
+        // Criação de um cliente com um nome
+        Cliente venilton = new Cliente("Venilton");
 
-		cc.depositar(100);
-		cc.transferir(100, poupanca);
-		
-		cc.imprimirExtrato();
-		poupanca.imprimirExtrato();
-	}
+        // Criação de contas com o cliente
+        Conta cc = new ContaCorrente(venilton);
+        Conta poupanca = new ContaPoupanca(venilton);
 
+        // Operações com contas
+        try {
+            cc.depositar(100);
+            cc.transferir(100, poupanca);
+        } catch (IllegalArgumentException | NullPointerException e) {
+            System.out.println("Erro ao realizar operações: " + e.getMessage());
+        }
+
+        // Impressão dos extratos
+        cc.imprimirExtrato();
+        poupanca.imprimirExtrato();
+    }
 }
